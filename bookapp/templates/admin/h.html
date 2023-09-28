@@ -1,0 +1,60 @@
+{% extends 'admin/admin_layout.html'%}
+
+{% block main%}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">All Books</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+            <li class="breadcrumb-item active">Tables</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                DataTables is a third party plugin that is used to generate the demo table below.  
+                <a href="{{ url_for('addbook')}}" class="btn btn-outline-primary">Add Book</a>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                {% if books%}
+               <table class="table">
+
+                {% set m = get_flashed_messages(with_categories=True)%}
+                    {% for x,y in m%}
+                        {% if x =='bookerror': %}
+                            <div class="alert alert-info">{{y}}</div>
+                        {% else: %}
+                            <div class="alert alert-danger mt-2">{{y}}</div>
+                        {% endif %}
+                    {%endfor%}
+                <thead>
+                <tr>
+                <th>S/N</th>
+                <th scope="col">Book Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Cover</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for x in books%}
+                <tr>
+                <th>{{ loop.index}}</th>
+                <td>{{ x.book_title }}</td>
+                <td>{{ x.catdeets.cat_name }}</td>
+                <td><img src="/static/images/b1.png" height="100"></td>
+                <td>{{ x.book_desc }}</td>
+                <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Published</a></td>
+                </tr>
+                {% endfor%}
+                </tbody>
+                </table>
+                {% else%}
+                    <div class="alert alert-info"> No Book Found... <a href="{{ url_for('addbook')}}" class="btn btn-outline-primary"> Click her to add book</a></div>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main%}

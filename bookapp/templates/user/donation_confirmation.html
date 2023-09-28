@@ -1,0 +1,74 @@
+{%extends 'user/home_layout.html'%}
+
+{%block content%}
+<h2><strong>Confirmation Page</strong></h2>
+<p><strong>Kindly Confirm the following details:</strong></p>
+
+<div class="mb-3">
+    <label>Donpr's Name</label>
+    {{donation_deets.don_fullname}}
+</div>
+<div class="mb-3">
+    <label>Donor's Email</label>
+    {{donation_deets.don_email}}
+
+</div>
+
+<div class="mb-3">
+    <label>Donor's  Amount</label>
+    {{donation_deets.don_amt}}
+
+</div>
+
+<div class="mb-3">
+    <label>TRANSACTION REF</label>
+   <b><span class="text-danger bg-warning">{{donation_deets.don_refno}}</span></b>
+
+</div>
+<form id="paymentForm">
+    <div class="mb-3">
+        <a href="{{url_for('dashboard')}}" class="btn btn-warning"> Cancel Payment</a>
+        <!-- <button class="btn btn-outline-danger"> Confirm Payment</button> -->
+
+        <button class="btn btn-outline-dark" onclick='payWithPaystack()'> Confirm Payment</button>
+
+    </div>
+</form>
+
+<hr>
+<h5>Redirect Method</h5>
+<a href="{{url_for('initialize_paystack')}}" class="btn btn-success">Make Payment Now</a>
+
+{%endblock%}
+
+{%block customjs%}
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+const paymentForm = document.getElementById('paymentForm');
+paymentForm.addEventListener("submit", payWithPaystack, false);
+
+function payWithPaystack(e) {
+  e.preventDefault();
+
+  let handler = PaystackPop.setup({
+    key: 'pk_test_ee3f372887047be287a0769ebc7e8066ea8adc8f', 
+    email: "{{donation_deets.don_email}}",
+    amount: "{{donation_deets.don_amt}}",
+    ref: "{{donation_deets.don_refno}}"*100, 
+    // label: "Optional string that replaces customer email"
+    onClose: function(){
+      alert('Window closed.');
+    },
+    callback: function(response){
+        console.log(reference);
+      let message = 'Payment complete! Reference: ' + response.reference;
+      //make ajax call to update the db with the payment status
+      alert(message);
+    }
+  });
+
+  handler.openIframe();
+}
+
+</script>
+{%endblock%}

@@ -1,0 +1,65 @@
+{%extends 'user/home_layout.html'%}
+
+
+{%block content%}
+<div id="msg">
+ <p></p>
+</div>
+<form id="myform">
+    <div class="content px-3">
+        <div class="row">
+            <div class="col">
+                {{ cform.email.label}}
+                {{ cform.email(class_='form-control border-success')}}
+            </div>
+            <div class="col">
+                <label> This filed is required </label>
+                {{ cform.csrf_token }}
+                {{ cform.submit(class_='btn btn-danger form-control', type='button')}}
+            </div>
+        </div>
+    </div>
+</form>
+
+{%endblock%}
+
+{%block customjs%}
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#submit").click(function(event){
+            event.preventDefault()
+
+            var myform = document.getElementById('myform')
+            var data2send = $('#myform').serialize()
+
+            //make ajax call as shown below
+            $.ajax({
+                url:"/ajaxopt/",
+                type:"POST", //also called method=''
+                data:data2send,
+                dataType:'json',
+                error:function(errmsg){
+                    console.log(errmsg)
+                },
+                success:function(serverRsp){
+                    $('#msg').html(serverRsp['message'])
+                    $('msg').addClass(Rsp_response:'bsclass')
+                },
+
+                complete:function(){
+                    $('#submit').val('Subscribe')
+                },
+                beforeSend:function(){
+                    $('#submit').val('Please Wait....') 
+                }
+            })
+        })
+    })
+
+</script>
+
+
+
+{%endblock%}

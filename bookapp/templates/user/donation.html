@@ -1,0 +1,36 @@
+{%extends 'user/home_layout.html'%}
+
+{%block content%}
+
+<div class="container col-md-6 mb-3">
+    <div class="m-0">
+        <h2><strong>Welcome to the Donation!</strong></h2>
+        <p ><strong>Kindly complete the form below with the amount you want to donate. Click on the button and it will take you to the page were you will put your Card Details</strong></p>
+    </div>
+    <form action="" method="POST">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <div class="">
+            <label for="fullname" class="mb-3"><strong>FullName</strong></label>
+            <input type="text" class="form-control border-danger mb-3" name="fullname" id="email" placeholder="John Wick" value="{{deets.user_fullname}}">
+        </div>
+
+        <div class="">
+            <label for="email" class="mb-3"><strong>Email</strong></label>
+            <input type="email" class="form-control border-danger mb-3" name="email" id="email" placeholder="name@email.com" value="{{deets.user_email}}">
+        </div>
+
+        <div class="">
+            <label for="amt" class="mb-3"><strong>Amount</strong></label>
+            <input type="number" class="form-control border-danger mb-3" name="amount" placeholder="123xxxxx" >
+        </div>
+
+        <button type="submit" class="form-control btn btn-outline-danger">Continue</button>
+    </form>
+
+   
+
+
+</div>
+
+
+{%endblock%}

@@ -1,0 +1,45 @@
+{%extends 'user/home_layout.html'%}
+
+  
+  {%block banner%}
+<div class="container col-xxl-8 py-5" >
+ 
+
+
+
+<!-- banner for Home Page-->
+
+{%endblock banner%}
+
+</div>
+
+{%block content%}
+<div class="content" style="background-color: white;padding:3em">
+    <h2 style="color:rgb(50, 50, 145)"><strong >Edit Your Profile</strong></h2>
+    <form enctype="multipart/form-data" method="post" action="">
+        {{pform.csrf_token}}
+        {%if pform.fullname.errors%}
+
+      <div span class="alert alert-danger">
+        {{pform.fullname.errors}}
+      </div>
+      {%endif%}
+      <div class="mb-3">
+        {{pform.fullname.label}}
+        {{pform.fullname(class="form-control rounded-pil", value=userdeets.user_fullname )}}
+      </div>
+      <div class="mb-3">
+        {{pform.btnsubmit(class='btn btn-primary')}}
+      </div>
+    </form>
+   </div>
+  
+    </div>
+
+ {%endblock%}
+ {%block partner%}
+ {%endblock%}
+ {%block featured%}
+ {%endblock%}
+
+

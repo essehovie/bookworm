@@ -1,0 +1,37 @@
+{%extends 'user/home_layout.html'%}
+
+{%block content%}
+
+<div class="content" style="background-color: aliceblue;padding: 3em;">
+    <input type="text" class="form-control border-success  noround" id="fullname">
+    <button class="btn btn-danger noround mt-3"id='btnname'>click me</button>
+    <button class="btn btn-danger noround mt-3" id="btnload">Submit me</button>
+<div clas="mb-3 border-primary" id="feedback">{{data}}</div>
+<div class="mb-3 border-primary" id="ajaxfeedback"></div>
+<input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+</div>
+
+
+{%endblock%}
+
+{%block customjs%}
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#btnname').click(function(){
+            fname = $('#fullname').val();
+            DATA2SEND = {"f":fname,"csrf":csrf}
+            // data2send= 'fullname='+ fname
+            $('#ajaxfeedback').load('/submission/',data2send,function(){
+                $(this).addClass('alert,alert-warning')
+            });
+        });
+   
+   $('#btnload').click(function(){
+    $('#ajaxfeedback').load('/submission/')
+   })
+   
+   });
+</script>
+
+
+{%endblock%}

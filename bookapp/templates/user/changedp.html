@@ -1,0 +1,45 @@
+{%extends 'user/home_layout.html'%}
+
+  
+  {%block banner%}
+<div class="container col-xxl-8 py-5" >
+ 
+
+
+
+<!-- banner for Home Page-->
+
+{%endblock banner%}
+
+</div>
+
+{%block content%}
+<div class="content" style="background-color: white;padding:3em">
+    <h2 style="color:rgb(50, 50, 145)"><strong >Change Your Profile Picture </strong></h2>
+    <form enctype="multipart/form-data" method="post" action="">
+        {{dpform.csrf_token}}
+        {%if dpform.dp.errors%}
+
+      <div span class="alert alert-danger">
+        {{dpform.dp.errors}}
+      </div>
+      {%endif%}
+      <div class="mb-3">
+        {{dpform.dp.label}}
+        {{dpform.dp(class="form-control-file btn btn-outline-primary rounded-pil")}}
+      </div>
+      <div class="mb-3">
+        {{dpform.btnupload(class='btn btn-primary')}}
+      </div>
+    </form>
+   </div>
+  
+    </div>
+
+ {%endblock%}
+ {%block partner%}
+ {%endblock%}
+ {%block featured%}
+ {%endblock%}
+
+

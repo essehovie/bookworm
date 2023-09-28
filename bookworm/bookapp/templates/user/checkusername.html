@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content" style="background-color: aliceblue; padding: 3em;">
+    <input type="email" class="form-control border-success noround" id="email">
+    <button class="btn btn-danger noround mt-3" id="check">Check Email</button>
+    <div class="mb-3 border-primary" id="emailFeedback"></div>
+</div>
+{% endblock %}
+
+{% block customjs %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#check').click(function() {
+        var email = $('#email').val();
+        var data = "username="+email
+        $('#avail').load("/checkusername/",data,function(){
+                $(this).addClass('alert,alert-info')
+            
+            });
+});
+
+    })
+
+</script>
+{% endblock %}
+
+
+
